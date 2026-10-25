@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truly - Human Verification Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="p-4 md:p-8 w-full">
+
+    <!-- Wild Background Canvas -->
+    <div class="bg-canvas">
+        <div class="shape-lime-square anim-float"></div>
+        <svg class="absolute anim-float-u" style="width: 260px; height: 260px; top: 10%; right: 2%; filter: drop-shadow(14px 14px 0px #000);" viewBox="0 0 120 120">
+            <path d="M 25 10 L 25 60 C 25 79.3 40.7 95 60 95 C 79.3 95 95 79.3 95 60 L 95 10 L 65 10 L 65 60 C 65 62.8 62.8 65 60 65 C 57.2 65 55 62.8 55 60 L 55 10 Z" fill="var(--bright-blue)" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
+        <div class="shape-track anim-pulse-slow">
+            <div class="shape-track-inner">
+                <div class="shape-track-inner-2"></div>
+            </div>
+        </div>
+        <svg class="absolute anim-spin-slow" style="width: 200px; height: 200px; top: 60%; left: -2%; filter: drop-shadow(10px 10px 0px #000);" viewBox="0 0 100 100">
+            <path d="M50 15 C 65 15, 65 35, 50 35 C 35 35, 35 15, 50 15 Z M65 35 C 80 35, 80 65, 65 65 C 50 65, 50 35, 65 35 Z M50 65 C 65 65, 65 85, 50 85 C 35 85, 35 65, 50 65 Z M35 35 C 50 35, 50 65, 35 65 C 20 65, 20 35, 35 35 Z" fill="var(--lavender)" stroke="#000" stroke-width="3"/>
+            <circle cx="50" cy="50" r="18" fill="var(--neon-green)" stroke="#000" stroke-width="4"/>
+        </svg>
+        <svg class="absolute anim-spin-slow" style="width: 140px; height: 140px; top: 40%; left: 30%; animation-duration: 12s; animation-direction: reverse; filter: drop-shadow(8px 8px 0px var(--bright-blue));" viewBox="0 0 100 100">
+            <polygon points="50,5 61,35 95,35 68,55 78,88 50,68 22,88 32,55 5,35 39,35" fill="#111" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <!-- Header / Navigation -->
+    <div class="w-full max-w-6xl flex flex-col md:flex-row justify-between items-center mt-6 md:mt-10 mb-4 z-10 relative shrink-0 gap-4">
+        <div onclick="switchTab('intro')" class="relative group cursor-pointer">
+            <div class="absolute -inset-2 rounded-xl bg-[var(--deep-purple)] blur-lg opacity-60 animate-pulse"></div>
+            <h1 id="main-logo" class="relative text-3xl md:text-5xl font-black tracking-tighter bg-white px-4 py-1 border-4 border-black rounded-xl inline-block transition-all duration-300" style="box-shadow: 6px 6px 0 var(--hot-pink); transform: rotate(-3deg);">
+                <span id="logo-text">TRULY.</span>
+            </h1>
+        </div>
+        <div class="flex gap-2.5 p-2 pb-4 overflow-x-auto shrink-0 w-full md:w-auto">
+            <button onclick="switchTab('intro')" id="btn-intro" class="tab-btn px-3 py-2 text-sm md:text-base font-extrabold rounded-lg neo-btn bg-white border-2 border-black whitespace-nowrap">0. About Truly</button>
+            <button onclick="switchTab('connect')" id="btn-connect" class="tab-btn px-3 py-2 text-sm md:text-base font-extrabold rounded-lg neo-btn bg-white border-2 border-black whitespace-nowrap">1. Setup</button>
+            <button onclick="switchTab('compose')" id="btn-compose" class="tab-btn px-3 py-2 text-sm md:text-base font-extrabold rounded-lg neo-btn bg-white border-2 border-black whitespace-nowrap">2. Compose</button>
+            <button onclick="switchTab('inbox')" id="btn-inbox" class="tab-btn px-3 py-2 text-sm md:text-base font-extrabold rounded-lg neo-btn bg-white border-2 border-black whitespace-nowrap">3. Recipient</button>
+            <button onclick="switchTab('id')" id="btn-id" class="tab-btn px-3 py-2 text-sm md:text-base font-extrabold rounded-lg neo-btn bg-white border-2 border-black whitespace-nowrap">4. ID</button>
+            <button onclick="switchTab('enterprise')" id="btn-enterprise" class="tab-btn px-3 py-2 text-sm md:text-base font-extrabold rounded-lg neo-btn bg-white border-2 border-black whitespace-nowrap bg-[var(--neon-green)]">5. Enterprise</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="w-full max-w-6xl relative flex-1 flex flex-col z-10 min-h-0 main-container">
+
+        <!-- TAB 0: INTRO / LANDING PAGE -->
+        <div id="tab-intro" class="tab-content active-tab h-full overflow-y-auto neo-box p-6 md:p-16 flex-col justify-center items-center backdrop-blur-md bg-white/95">
+            <div class="max-w-3xl mx-auto w-full flex flex-col items-center text-center my-auto py-8">
+                
+                <!-- Minimalist Promise Badge -->
+                <div class="inline-flex items-center gap-2 bg-black text-white px-4 py-1.5 rounded-full border-2 border-black mb-8 shadow-[4px_4px_0_var(--neon-green)]">
+                    <span class="w-2 h-2 rounded-full bg-[var(--neon-green)] animate-pulse"></span>
+                    <span class="text-xs font-black uppercase tracking-widest">byHuman • Email Layer</span>
+                </div>
+
+                <!-- Hero Title -->
+                <h2 class="text-4xl md:text-7xl font-black tracking-tight leading-[1.02] mb-6 uppercase">
+                    A Promise Badge of <br>
+                    <span class="inline-block bg-[var(--neon-green)] px-5 py-1.5 border-4 border-black rounded-2xl shadow-[6px_6px_0_#000] mt-2 transform -rotate-1">Personal Attention.</span>
+                </h2>
+
+                <!-- Concise Subheadline -->
+                <p class="text-lg md:text-2xl font-bold text-gray-700 max-w-xl mb-10 leading-snug">
+                    Layered on top of your existing email. Proving a live human was present and chose to send the message that matters most.
+                </p>
+
+                <!-- Call to Action Button -->
+                <button onclick="switchTab('connect')" class="neo-btn bg-[var(--bright-blue)] text-white py-4 px-8 md:px-12 text-lg md:text-xl font-black flex items-center gap-3 border-4 hover:bg-blue-600 shadow-[6px_6px_0_#000] mb-12">
+                    <span>Start Special Conversations</span>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                </button>
+
+                <!-- Minimalist 3-Feature Pill Bar -->
+                <div class="flex flex-wrap justify-center gap-3 md:gap-4 w-full">
+                    <div class="bg-[var(--bg-cream)] border-2 border-black rounded-xl px-4 py-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[var(--bright-blue)] border border-black"></span>
+                        <span class="text-xs md:text-sm font-black uppercase tracking-wide">Works Inside Gmail & Outlook</span>
+                    </div>
+                    <div class="bg-[var(--bg-cream)] border-2 border-black rounded-xl px-4 py-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[var(--hot-pink)] border border-black"></span>
+                        <span class="text-xs md:text-sm font-black uppercase tracking-wide">Biometric Proof of Presence</span>
+                    </div>
+                    <div class="bg-[var(--bg-cream)] border-2 border-black rounded-xl px-4 py-2.5 shadow-[3px_3px_0_#000] flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[var(--neon-green)] border border-black"></span>
+                        <span class="text-xs md:text-sm font-black uppercase tracking-wide">Shielded from AI Scrapers</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 1: SETUP -->
+        <div id="tab-connect" class="tab-content h-full overflow-y-auto neo-box p-6 md:p-8 flex-col items-center justify-center text-center backdrop-blur-md bg-white/95">
+            <div class="w-20 h-20 rounded-full mb-4 flex items-center justify-center border-4 border-black shrink-0" style="background-color: var(--bright-blue); box-shadow: 6px 6px 0 #000;">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Connect your Email with Truly</h2>
+            <p class="text-gray-800 mb-6 font-bold text-base md:text-lg max-w-2xl">Send messages that guarantee your authentic human presence in a sea of AI agents.</p>
+            
+            <div id="setup-step-1" class="flex flex-col items-center w-full">
+                <button onclick="showProviders()" class="neo-btn bg-[var(--neon-green)] py-3 px-8 text-xl flex items-center gap-3 w-full md:w-auto justify-center mb-8 border-4 shrink-0 hover:bg-green-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                    Link Email
+                </button>
+            </div>
+
+            <div id="setup-step-2" class="hidden flex-col items-center w-full max-w-md mb-8 gap-4">
+                <button onclick="goBackToStep1()" class="self-start text-sm font-bold text-gray-500 hover:text-black flex items-center gap-1 cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Back to Setup
+                </button>
+                <button onclick="connectProvider('Gmail')" class="neo-btn bg-white py-4 px-6 text-lg flex items-center gap-4 w-full justify-start hover:bg-gray-50 border-4">
+                    <svg class="w-7 h-7 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.15C3.15 21.32 7.22 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.18C.43 8.13 0 9.87 0 12s.43 3.87 1.18 5.39l4.09-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.15 2.68 1.18 6.61l4.09 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                    Continue with Gmail
+                </button>
+                <button onclick="connectProvider('Outlook')" class="neo-btn bg-white py-4 px-6 text-lg flex items-center gap-4 w-full justify-start hover:bg-gray-50 border-4">
+                    <svg class="w-7 h-7" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 0H0V11H11V0Z" fill="#F25022"/>
+                        <path d="M23 0H12V11H23V0Z" fill="#7FBA00"/>
+                        <path d="M11 12H0V23H11V12Z" fill="#00A4EF"/>
+                        <path d="M23 12H12V23H23V12Z" fill="#FFB900"/>
+                    </svg>
+                    Continue with Outlook
+                </button>
+                <button onclick="connectProvider('Custom Email')" class="neo-btn bg-white py-4 px-6 text-lg flex items-center gap-4 w-full justify-start hover:bg-gray-50 border-4">
+                    <svg class="w-7 h-7 text-gray-800" fill="currentColor" viewBox="0 0 24 24"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    Custom Email (IMAP/SMTP)
+                </button>
+            </div>
+
+            <div id="setup-step-3" class="hidden flex-col items-center w-full max-w-sm mb-8 border-4 border-black p-6 rounded-xl bg-white text-center" style="box-shadow: 6px 6px 0 var(--bright-blue);">
+                <div class="w-16 h-16 bg-black rounded-full flex items-center justify-center mb-4 border-4 border-black" style="box-shadow: 4px 4px 0 var(--neon-green);">
+                    <svg class="w-8 h-8 text-[var(--neon-green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="font-black text-2xl mb-1 uppercase tracking-tight">Channel Secured</h3>
+                <p id="connected-provider-text" class="text-base font-bold text-gray-600 mb-4">user@domain.com</p>
+                
+                <p class="text-sm font-extrabold text-black mb-1">2 Verified Human Credits Minted for This Month</p>
+                <p class="text-xs font-bold text-gray-500 mb-6">Renews next month.</p>
+
+                <button onclick="switchTab('compose')" class="neo-btn bg-[var(--hot-pink)] text-white border-2 py-3 px-6 w-full text-base font-black mb-4">Go to Mailbox →</button>
+                <button onclick="switchTab('id')" class="text-xs font-black text-[var(--bright-blue)] hover:underline cursor-pointer">[+ Get More Credits]</button>
+            </div>
+
+            <div class="w-full max-w-3xl p-5 rounded-xl border-4 border-black text-left relative overflow-hidden shrink-0" style="background-color: var(--neon-green); box-shadow: 6px 6px 0 #000;">
+                <div class="flex items-start gap-4 relative z-10">
+                    <svg class="w-8 h-8 mt-1 shrink-0 text-black" fill="none" stroke="black" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <div>
+                        <h3 class="font-extrabold text-xl text-black mb-2 uppercase tracking-tight">The Human Promise</h3>
+                        <div class="text-black font-bold text-sm md:text-base leading-snug flex flex-col gap-1">
+                            <p><strong>For you sending:</strong> Only you can seal it. No agent can send it for you.</p>
+                            <p><strong>For your receivers:</strong> Your receivers receive a sealed email only they can unlock. AI can notify them, but cannot read and learn from it.</p>
+                            <div>
+                                <a href="#" onclick="openAILimitsModal(event)" class="underline font-black hover:text-gray-800">Learn more about AI limits.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: COMPOSE (MAILBOX) -->
+        <div id="tab-compose" class="tab-content bg-white overflow-hidden rounded-xl shadow-lg border border-gray-300 flex-row" style="font-family: system-ui, -apple-system, sans-serif;">
+            <div class="hidden md:flex flex-col w-48 bg-gray-50 border-r border-gray-200 shrink-0">
+                <div class="p-4">
+                    <button onclick="showComposeNew()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow-sm transition-colors flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Compose
+                    </button>
+                </div>
+                <nav class="flex-1 pt-2">
+                    <a href="#" onclick="showComposeInbox()" class="flex items-center gap-3 px-4 py-2 bg-blue-100 text-blue-700 font-medium border-r-4 border-blue-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                        Inbox
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-600 hover:bg-gray-100 font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        Sent
+                    </a>
+                </nav>
+            </div>
+
+            <div class="flex-1 flex flex-col min-h-0 w-full bg-white relative">
+                <!-- View 1: Inbox List -->
+                <div id="compose-inbox-view" class="flex-1 flex flex-col min-h-0 w-full bg-white">
+                    <div class="flex items-center justify-between p-4 border-b border-gray-200 shrink-0">
+                        <h2 class="text-xl font-medium text-gray-800">Inbox</h2>
+                        <button onclick="showComposeNew()" class="md:hidden bg-blue-600 text-white px-3 py-1.5 rounded-full text-sm font-medium">
+                            Compose
+                        </button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto flex flex-col bg-white">
+                        <div onclick="showComposeReply()" class="flex items-center p-3 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors bg-white">
+                            <div class="w-32 md:w-48 shrink-0 font-bold text-gray-800 text-sm truncate pr-2">Mom ❤️</div>
+                            <div class="flex-1 truncate text-sm">
+                                <span class="font-bold text-gray-800">Found your old childhood photo album!</span>
+                                <span class="text-gray-500 mx-2 hidden md:inline">-</span>
+                                <span class="text-gray-500 hidden md:inline">I was cleaning out the top cupboard today and found the little wooden box you made...</span>
+                            </div>
+                            <div class="w-16 shrink-0 text-right text-xs font-medium text-gray-800">10:45 AM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View 2: Reply -->
+                <div id="compose-reply-view" class="hidden flex-1 flex flex-col min-h-0 w-full bg-white">
+                    <div class="flex items-center gap-3 p-3 border-b border-gray-200 shrink-0 bg-white">
+                        <button onclick="showComposeInbox()" class="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        </button>
+                        <h2 class="text-lg font-medium text-gray-800 truncate">Re: Found your old childhood photo album!</h2>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col min-h-0 overflow-y-auto p-4 gap-4 bg-white">
+                        <div class="pl-4 border-l-2 border-gray-300 ml-2">
+                            <div class="text-xs text-gray-500 mb-1">On Fri, Oct 23, 2026 at 10:45 AM, Mom ❤️ wrote:</div>
+                            <div class="text-sm text-gray-700 leading-relaxed">I was cleaning out the top cupboard today and found the little wooden box you made in 4th grade! Inside were all those polaroids from our summer trip to the hills. Made me miss you so much. Hope you're eating well and getting enough sleep!</div>
+                        </div>
+                        <textarea class="flex-1 resize-none text-sm text-gray-800 outline-none p-2" placeholder="Write your reply...">Love you so much, Ma! That trip is still one of my favorite memories. I'm coming home next weekend for sure—save those photos, we'll look through all of them together over chai. Sealing this with Truly so you know it's really me writing this and not an auto-reply!</textarea>
+                    </div>
+                    
+                    <div class="shrink-0 p-4 border-t border-gray-200 bg-gray-50 relative overflow-hidden md:rounded-br-xl">
+                        <div style="font-family: 'Space Grotesk', sans-serif;">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    Truly extension active
+                                </span>
+                            </div>
+                            <button class="hold-btn neo-btn w-full md:w-auto md:min-w-[300px] h-14 rounded-xl flex items-center justify-center border-4 relative overflow-hidden" style="background-color: var(--bright-blue);">
+                                <div class="hold-progress"></div>
+                                <span class="hold-text text-lg font-black tracking-wide flex items-center gap-2 uppercase text-white">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                                    Hold to Send Truly
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View 3: Compose New -->
+                <div id="compose-new-view" class="hidden flex-1 flex flex-col min-h-0 w-full">
+                    <div class="flex items-center gap-3 p-3 border-b border-gray-200 shrink-0 bg-white">
+                        <button onclick="showComposeInbox()" class="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        </button>
+                        <h2 class="text-lg font-medium text-gray-800">New Message</h2>
+                    </div>
+                    <div class="flex-1 flex flex-col min-h-0 overflow-y-auto p-0 bg-white">
+                        <div class="px-4 py-2 border-b border-gray-100 flex items-center">
+                            <label class="text-gray-500 text-sm w-16">To</label>
+                            <input type="email" class="flex-1 outline-none text-sm text-gray-800" value="aarav.mehta@gmail.com">
+                        </div>
+                        <div class="px-4 py-2 border-b border-gray-100 flex items-center">
+                            <label class="text-gray-500 text-sm w-16">Subject</label>
+                            <input type="text" class="flex-1 outline-none text-sm text-gray-800 font-medium" value="A real note from me — thank you for everything">
+                        </div>
+                        <textarea class="flex-1 resize-none outline-none text-sm text-gray-800 p-4 leading-relaxed" placeholder="Write something...">Hey Aarav,
+
+I was just thinking about how crazy this past year has been, and I wanted to pause and properly say thank you. When things got overwhelming for me last month, you showed up without me even having to ask.
+
+In a world where everyone's AI assistant just fires off automated check-ins and scheduled birthday texts, I wanted to sit down, write this myself, and seal it with my own fingerprint. You're a brother to me, and I'm really grateful to have you in my corner.
+
+Let's grab dinner this week—my treat!</textarea>
+                    </div>
+                    <div class="shrink-0 p-4 border-t border-gray-200 bg-gray-50 relative overflow-hidden md:rounded-br-xl">
+                        <div style="font-family: 'Space Grotesk', sans-serif;">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    Truly extension active
+                                </span>
+                            </div>
+                            <button class="hold-btn neo-btn w-full md:w-auto md:min-w-[300px] h-14 rounded-xl flex items-center justify-center border-4 relative overflow-hidden" style="background-color: var(--bright-blue);">
+                                <div class="hold-progress"></div>
+                                <span class="hold-text text-lg font-black tracking-wide flex items-center gap-2 uppercase text-white">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                                    Hold to Send Truly
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: INBOX (RECIPIENT) -->
+        <div id="tab-inbox" class="tab-content bg-white overflow-hidden rounded-xl shadow-lg border border-gray-300 flex-row" style="font-family: system-ui, -apple-system, sans-serif;">
+            <!-- Standard Email Sidebar -->
+            <div class="hidden md:flex flex-col w-48 bg-gray-50 border-r border-gray-200 shrink-0">
+                <div class="p-4">
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full shadow-sm transition-colors flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Compose
+                    </button>
+                </div>
+                <nav class="flex-1 pt-2">
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 bg-blue-100 text-blue-700 font-medium border-r-4 border-blue-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+                        Inbox <span class="ml-auto bg-blue-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">1</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="flex-1 flex flex-col min-h-0 w-full relative">
+                
+                <!-- Recipient Inbox List View -->
+                <div id="recipient-inbox-list" class="flex-1 flex flex-col min-h-0 w-full bg-white relative">
+                    <div class="flex items-center justify-between p-4 border-b border-gray-200 shrink-0">
+                        <h2 class="text-xl font-medium text-gray-800">Inbox</h2>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto flex flex-col">
+                        <!-- AI Handled Email 1 -->
+                        <div class="flex items-center p-3 border-b border-gray-200 bg-gray-50 opacity-60">
+                            <div class="w-32 md:w-48 shrink-0 font-medium text-gray-600 text-sm truncate pr-2">AWS Billing</div>
+                            <div class="flex-1 truncate text-sm">
+                                <span class="text-gray-600">Invoice #4092 - </span>
+                                <span class="italic text-indigo-600 font-medium">🤖 AI Agent: Paid and archived to accounting.</span>
+                            </div>
+                            <div class="w-16 shrink-0 text-right text-xs text-gray-500">Yesterday</div>
+                        </div>
+                        
+                        <!-- AI Handled Email 2 -->
+                        <div class="flex items-center p-3 border-b border-gray-200 bg-gray-50 opacity-60">
+                            <div class="w-32 md:w-48 shrink-0 font-medium text-gray-600 text-sm truncate pr-2">Acme Corp Team</div>
+                            <div class="flex-1 truncate text-sm">
+                                <span class="text-gray-600">Weekly Sync Notes - </span>
+                                <span class="italic text-indigo-600 font-medium">🤖 AI Agent: Summarized and added to Notion.</span>
+                            </div>
+                            <div class="w-16 shrink-0 text-right text-xs text-gray-500">9:15 AM</div>
+                        </div>
+
+                        <!-- Truly Email -->
+                        <div onclick="triggerRecipientUnlock()" class="flex items-center p-3 border-b border-gray-200 cursor-pointer bg-blue-50 hover:bg-blue-100 transition-colors">
+                            <div class="w-32 md:w-48 shrink-0 font-bold text-gray-900 text-sm truncate pr-2 flex items-center gap-1.5">
+                                Jatin Roopak
+                                <svg class="w-3.5 h-3.5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div class="flex-1 truncate text-sm">
+                                <span class="font-bold text-gray-900">A real note from me — thank you for everything</span>
+                                <span class="text-gray-500 mx-2 hidden md:inline">-</span>
+                                <span class="text-blue-600 font-semibold text-[11px] border border-blue-200 bg-blue-100 px-1.5 py-0.5 rounded ml-1 hidden md:inline-block">🔒 Personal • Human Eyes Only</span>
+                            </div>
+                            <div class="w-16 shrink-0 text-right text-xs font-bold text-blue-600">10:52 PM</div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Notification Bubble -->
+                    <div class="absolute bottom-6 right-6 left-6 md:left-auto md:w-80 bg-white border border-gray-200 shadow-xl rounded-2xl p-4 flex gap-3 items-start transform transition-transform hover:-translate-y-1 z-20">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center shrink-0 border border-indigo-200">
+                            <span class="text-xl">🤖</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-indigo-700 text-sm mb-1">Personal AI Agent</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">Hey sir, a <strong>Truly</strong> message has come from Jatin. I cannot read or summarize it—it's meant for your eyes only.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipient Email View -->
+                <div id="recipient-email-view" class="hidden flex-1 flex flex-col min-h-0 w-full bg-white">
+                    <div class="flex items-center gap-3 p-3 border-b border-gray-200 shrink-0 bg-white">
+                        <button onclick="backToRecipientInbox()" class="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        </button>
+                        <h2 class="text-lg font-medium text-gray-800 truncate">A real note from me — thank you for everything</h2>
+                    </div>
+                    
+                    <div class="p-6 flex-grow overflow-y-auto">
+                        <div class="flex flex-wrap items-start justify-between border-b border-gray-100 pb-4 mb-4 gap-4">
+                            <div>
+                                <div class="flex items-center flex-wrap gap-2 mt-1">
+                                    <span class="font-bold text-gray-900 text-base">Jatin Roopak</span>
+                                    <span class="text-gray-500 text-sm">&lt;jatin.roopak@domain.com&gt;</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">To: Me</div>
+                            </div>
+                            <span class="text-sm font-medium text-gray-500">10:52 PM</span>
+                        </div>
+                        
+                        <div class="text-gray-800 leading-relaxed text-sm flex flex-col gap-4">
+                            <p>Hey Aarav,</p>
+                            <p>I was just thinking about how crazy this past year has been, and I wanted to pause and properly say thank you. When things got overwhelming for me last month, you showed up without me even having to ask.</p>
+                            <p>In a world where everyone's AI assistant just fires off automated check-ins and scheduled birthday texts, I wanted to sit down, write this myself, and seal it with my own fingerprint. You're a brother to me, and I'm really grateful to have you in my corner.</p>
+                            <p>Let's grab dinner this week—my treat!</p>
+                            <p>Warmly,<br>Jatin</p>
+                            
+                            <div class="mt-4 pt-4 flex items-center">
+                                <button onclick="openVerificationModal()" class="badge-truly text-xs font-black px-3.5 py-2 rounded-lg flex items-center gap-2 cursor-pointer" style="font-family: 'Space Grotesk', sans-serif;">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                                    byHuman • Truly Verified
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: ID -->
+        <div id="tab-id" class="tab-content h-full neo-box p-6 md:p-8 flex-col bg-white overflow-y-auto backdrop-blur-md bg-white/95">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b-4 border-black">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold uppercase tracking-tight">Truly ID</h2>
+                    <p id="id-connected-email" class="text-gray-600 font-bold text-lg">Not Connected</p>
+                </div>
+                <div class="bg-[var(--neon-green)] border-4 border-black p-4 rounded-xl text-center shadow-[6px_6px_0_0_#000] shrink-0">
+                    <p class="text-xs font-black uppercase text-gray-800 mb-1">Balance</p>
+                    <p id="id-credit-balance" class="text-3xl font-black leading-none">5</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-extrabold mb-4 uppercase">Increase Bandwidth</h3>
+            <div class="flex flex-col md:flex-row gap-6 w-full max-w-5xl">
+                <div class="flex-1 bg-[var(--lavender)] border-4 border-black rounded-xl p-6 flex flex-col justify-between shadow-[8px_8px_0_0_#000]">
+                    <div>
+                        <h4 class="text-2xl font-black uppercase mb-2">Micro-Pass</h4>
+                        <p class="font-bold text-gray-800 text-sm mb-4">Perfect for that one important message. Buy a single verified dispatch to send like a gift.</p>
+                        <p class="text-3xl font-black mb-6">₹10 <span class="text-lg text-gray-600">/ $0.5</span></p>
+                    </div>
+                    <button onclick="buyCredit()" class="neo-btn bg-white w-full py-3 text-lg">+1 Verification</button>
+                </div>
+
+                <div class="flex-1 bg-[var(--bright-blue)] text-white border-4 border-black rounded-xl p-6 flex flex-col justify-between shadow-[8px_8px_0_0_#000]">
+                    <div>
+                        <div class="inline-block bg-[var(--neon-green)] text-black text-xs font-black px-2 py-1 rounded border-2 border-black mb-2 uppercase">Best Value</div>
+                        <h4 class="text-2xl font-black uppercase mb-2">150 Messages</h4>
+                        <p class="font-bold text-gray-100 text-sm mb-4">150 human verifications for power users, sellers, and executives.</p>
+                        <p class="text-3xl font-black mb-6">₹399 <span class="text-lg text-gray-200">/ $4.99<span class="text-sm">/mo</span></span></p>
+                    </div>
+                    <button onclick="buyBulk()" class="neo-btn bg-[var(--hot-pink)] text-white w-full py-3 text-lg border-black">+150 Verifications</button>
+                </div>
+
+                <!-- Truly Business Card -->
+                <div class="flex-1 bg-[var(--neon-green)] text-black border-4 border-black rounded-xl p-6 flex flex-col justify-between shadow-[8px_8px_0_0_#000]">
+                    <div>
+                        <div class="inline-block bg-black text-[var(--neon-green)] text-xs font-black px-2 py-1 rounded border-2 border-black mb-2 uppercase">For Teams</div>
+                        <h4 class="text-2xl font-black uppercase mb-2">Truly Business</h4>
+                        <p class="font-bold text-gray-800 text-sm mb-4">Manage team seats, get API access, and secure high-stakes corporate communication.</p>
+                        <p class="text-3xl font-black mb-6">Custom <span class="text-lg text-gray-600">/ org</span></p>
+                    </div>
+                    <button onclick="switchTab('enterprise')" class="neo-btn bg-white text-black w-full py-3 text-lg border-black">Open Dashboard</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5: ENTERPRISE -->
+        <div id="tab-enterprise" class="tab-content h-full neo-box flex-col bg-white overflow-y-auto backdrop-blur-md bg-white/95">
+            <!-- Manager Dashboard View -->
+            <div id="ent-dashboard" class="flex flex-col w-full min-h-0 p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b-4 border-black pb-4 mb-6">
+                    <div>
+                        <h2 class="text-3xl font-extrabold uppercase tracking-tight">Manager Dashboard</h2>
+                        <p class="text-gray-600 font-bold text-sm md:text-base mt-1">Truly Enterprise: High-stakes communication management.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex gap-4">
+                        <div class="bg-[var(--neon-green)] border-4 border-black p-3 rounded-xl text-center shadow-[4px_4px_0_0_#000]">
+                            <p class="text-[10px] font-black uppercase text-gray-800 mb-1">Active Badges</p>
+                            <p class="text-2xl font-black leading-none">12 <span class="text-sm text-gray-600">/ 50</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-extrabold mb-4 uppercase flex items-center gap-2">
+                    <svg class="w-6 h-6 text-[var(--bright-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    Team Seat Allocation
+                </h3>
+                
+                <div class="flex flex-col gap-3">
+                    <!-- Employee 1 -->
+                    <div class="border-4 border-black rounded-xl p-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer transition-transform hover:-translate-y-1 bg-white shadow-[4px_4px_0_0_#000]" onclick="openEmpMailbox('Sarah Connor', 'Tier-3 Support Escalations')">
+                        <div>
+                            <div class="font-black text-lg md:text-xl text-[var(--bright-blue)] underline">Sarah Connor</div>
+                            <div class="text-sm font-bold text-gray-500">Tier-3 Support Escalations</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-end md:items-center gap-2 md:gap-3" onclick="event.stopPropagation()">
+                            <span class="text-[10px] md:text-xs font-black uppercase tracking-wider text-gray-600">Truly Seat Active</span>
+                            <!-- Custom Toggle -->
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--neon-green)] border-2 border-black"></div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Employee 2 -->
+                    <div class="border-4 border-black rounded-xl p-4 flex justify-between items-center hover:bg-gray-50 cursor-pointer transition-transform hover:-translate-y-1 bg-white shadow-[4px_4px_0_0_#000]" onclick="openEmpMailbox('Harvey Specter', 'Legal Counsel')">
+                        <div>
+                            <div class="font-black text-lg md:text-xl text-[var(--bright-blue)] underline">Harvey Specter</div>
+                            <div class="text-sm font-bold text-gray-500">Legal Counsel</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-end md:items-center gap-2 md:gap-3" onclick="event.stopPropagation()">
+                            <span class="text-[10px] md:text-xs font-black uppercase tracking-wider text-gray-600">Truly Seat Active</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--neon-green)] border-2 border-black"></div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Employee 3 (Inactive) -->
+                    <div class="border-4 border-gray-300 rounded-xl p-4 flex justify-between items-center hover:bg-gray-50 cursor-default bg-gray-50" onclick="event.stopPropagation()">
+                        <div>
+                            <div class="font-black text-lg md:text-xl text-gray-500">James Gordon</div>
+                            <div class="text-sm font-bold text-gray-400">Marketplace Dispute Resolution</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-end md:items-center gap-2 md:gap-3">
+                            <span class="text-[10px] md:text-xs font-black uppercase tracking-wider text-gray-400">Seat Inactive</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer">
+                                <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--neon-green)] border-2 border-gray-400"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Employee Mailbox Simulation (Normal Mailbox Vibe) -->
+            <div id="ent-mailbox" class="hidden flex-col flex-1 w-full bg-white p-0 border-0 overflow-hidden corp-mail rounded-xl">
+                <!-- App-like Header -->
+                <div class="bg-[#0078d4] text-white p-3 flex justify-between items-center shrink-0 shadow-md z-10">
+                    <div class="flex items-center gap-4">
+                        <button onclick="closeEmpMailbox()" class="text-white hover:bg-[#106ebe] p-1.5 rounded transition-colors flex items-center gap-1 text-sm font-semibold">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            Dashboard
+                        </button>
+                        <div class="font-semibold text-lg flex items-center gap-2">
+                            <svg class="w-5 h-5 opacity-80" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                            Corporate Webmail
+                        </div>
+                    </div>
+                    <div id="emp-mail-name" class="text-sm font-medium opacity-90 hidden md:block">Sarah Connor (Escalations)</div>
+                </div>
+                
+                <div class="flex flex-1 min-h-0">
+                    <!-- Standard Email Sidebar -->
+                    <div class="w-48 bg-[#f3f2f1] border-r border-gray-200 p-2 hidden md:block shrink-0">
+                        <button class="w-full bg-[#0078d4] text-white py-2 px-4 rounded text-sm font-semibold mb-4 shadow-sm">New Message</button>
+                        <ul class="space-y-1 text-sm text-[#323130]">
+                            <li class="p-2 bg-gray-200 font-semibold rounded cursor-pointer">Inbox <span class="float-right text-blue-600">3</span></li>
+                            <li class="p-2 hover:bg-gray-200 rounded cursor-pointer">Sent Items</li>
+                            <li class="p-2 hover:bg-gray-200 rounded cursor-pointer">Drafts</li>
+                            <li class="p-2 hover:bg-gray-200 rounded cursor-pointer">Deleted Items</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Standard Email Body -->
+                    <div class="flex-1 flex flex-col min-h-0 bg-white">
+                        <div class="p-4 border-b border-gray-200 shrink-0">
+                            <h2 class="text-xl font-semibold text-[#323130] mb-2">Re: Escalation - Account Suspension Dispute #9982</h2>
+                            <div class="flex justify-between items-start text-sm">
+                                <div>
+                                    <span class="font-semibold text-[#323130]">Sarah Connor</span>
+                                    <span class="text-gray-500 mx-1">&lt;s.connor@enterprise.com&gt;</span>
+                                </div>
+                                <div class="text-gray-500">Today, 2:14 PM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 flex-1 overflow-y-auto text-[#323130] text-sm leading-relaxed space-y-4">
+                            <p>Dear Customer,</p>
+                            <p>I am stepping in to personally handle your escalated case regarding the recent marketplace suspension. I have manually reviewed the server logs and recognized that the automated system mistakenly flagged your account.</p>
+                            <p>I am issuing a full override to restore your access immediately. The issue should be resolved on your end within the next 15 minutes.</p>
+                            <p>Because of the sensitive nature of this resolution and our commitment to transparency, I am sending this communication via our verified human channel to ensure you know a real manager has taken over.</p>
+                            <p>Best regards,<br><strong>Sarah Connor</strong><br>Tier-3 Escalations Manager</p>
+                        </div>
+                        
+                        <!-- Truly Injection (Stands out in the plain UI) -->
+                        <div class="p-4 bg-[#f8f9fa] border-t border-gray-200 shrink-0" style="font-family: 'Space Grotesk', sans-serif;">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    Truly Browser Extension Active
+                                </span>
+                            </div>
+                            <button class="hold-btn neo-btn w-full md:w-auto md:min-w-[350px] h-12 rounded-xl flex items-center justify-center border-4 relative overflow-hidden" style="background-color: var(--bright-blue);">
+                                <div class="hold-progress"></div>
+                                <span class="hold-text text-base font-black tracking-wide flex items-center gap-2 uppercase text-white">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                                    Hold to Send Truly
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    
+    <!-- Recipient Biometric Modal -->
+    <div id="recipientBiometricModal" class="fixed inset-0 modal-backdrop hidden items-center justify-center p-4 z-[80]" style="font-family: system-ui, -apple-system, sans-serif;">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full relative flex flex-col items-center text-center fade-in border border-gray-200 overflow-hidden">
+            
+            <div id="recip-bio-selection" class="w-full p-8 flex flex-col items-center">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full mb-4 flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-gray-900">Secure Decryption</h3>
+                <p class="text-gray-500 text-sm mb-6">This personal message requires proof of human presence to open.</p>
+                
+                <div class="grid grid-cols-3 gap-3 w-full mb-6">
+                    <button onclick="simulateRecipientScan('fingerprint')" class="p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors flex flex-col items-center gap-2 text-gray-700">
+                        <span class="text-2xl">👆</span>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider">Touch ID</span>
+                    </button>
+                    <button onclick="simulateRecipientScan('face')" class="p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors flex flex-col items-center gap-2 text-gray-700">
+                        <span class="text-2xl">🙂</span>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider">Face ID</span>
+                    </button>
+                    <button onclick="simulateRecipientScan('pin')" class="p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors flex flex-col items-center gap-2 text-gray-700">
+                        <span class="text-2xl">🔢</span>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider">Device PIN</span>
+                    </button>
+                </div>
+                <button onclick="closeRecipientBiometricModal()" class="text-sm font-medium text-gray-400 hover:text-gray-600">Cancel</button>
+            </div>
+
+            <div id="recip-bio-scanning" class="w-full p-10 flex flex-col items-center hidden">
+                <div class="relative w-24 h-24 mb-6">
+                    <div class="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-3xl" id="recip-scan-icon"></div>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-1">Verifying...</h3>
+                <p class="text-sm text-gray-500">Confirming physical presence</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Biometric Selection Modal -->
+    <div id="biometricModal" class="fixed inset-0 modal-backdrop hidden items-center justify-center p-4">
+        <div class="neo-box p-8 max-w-md w-full relative z-10 flex flex-col items-center text-center fade-in bg-white border-8 border-black">
+            
+            <div id="bio-selection" class="w-full flex flex-col items-center">
+                <div class="w-20 h-20 bg-black rounded-full mb-4 flex items-center justify-center shadow-[6px_6px_0_var(--hot-pink)]">
+                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-4xl font-black mb-2 uppercase tracking-tight">Verify Presence</h3>
+                <p class="text-lg font-bold text-gray-600 mb-8">Choose a method to confirm you are physically present.</p>
+                
+                <div class="flex w-full gap-4 mb-6">
+                    <button onclick="startBiometricScan('fingerprint')" class="neo-btn flex-1 py-6 flex flex-col items-center gap-3 border-4" style="background-color: #111; color: white;">
+                        <svg class="w-12 h-12 text-[var(--neon-green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"></path></svg>
+                        <span class="font-black text-lg">Fingerprint</span>
+                    </button>
+                    <button onclick="startBiometricScan('face')" class="neo-btn flex-1 py-6 flex flex-col items-center gap-3 border-4" style="background-color: #111; color: white;">
+                        <svg class="w-12 h-12 text-[var(--hot-pink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span class="font-black text-lg">Face Scan</span>
+                    </button>
+                </div>
+                <button onclick="closeModals()" class="text-sm font-black uppercase underline mt-2 text-gray-500 hover:text-black cursor-pointer">Cancel Verification</button>
+            </div>
+
+            <div id="bio-scanning" class="w-full flex flex-col items-center hidden py-8">
+                <h3 class="text-3xl font-black mb-8 uppercase tracking-tight animate-pulse text-[var(--bright-blue)]">Scanning...</h3>
+                <div class="relative w-40 h-40 border-8 border-black rounded-3xl flex items-center justify-center bg-gray-100 overflow-hidden shadow-[8px_8px_0_0_#000]">
+                    <div class="scanner-line"></div>
+                    <svg id="scan-icon" class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                </div>
+                <p class="text-lg font-bold text-gray-500 mt-8">Please hold still.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clean Send Verification Animation Overlay -->
+    <div id="successOverlay" class="fixed inset-0 z-[60] hidden items-center justify-center backdrop-blur-md bg-black/50 p-4">
+        <div class="clean-verify-card bg-white border-4 border-black rounded-2xl p-10 max-w-xs w-full shadow-[8px_8px_0_#000] flex flex-col items-center text-center relative overflow-hidden">
+            
+            <!-- Animated Checkmark & Pulse Ring -->
+            <div class="relative w-20 h-20 mb-4 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-[var(--neon-green)] ring-pulse"></div>
+                <div class="relative w-16 h-16 rounded-full bg-black border-3 border-black flex items-center justify-center shadow-[4px_4px_0_var(--neon-green)]">
+                    <svg class="w-8 h-8 text-[var(--neon-green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path class="check-draw" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <h2 class="text-4xl font-black uppercase tracking-tight text-black mb-1">SENT</h2>
+            <p class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Verification Complete</p>
+        </div>
+    </div>
+
+    <!-- Recipient Verification Modal -->
+    <div id="verificationModal" class="fixed inset-0 modal-backdrop hidden items-center justify-center p-4">
+        <div class="neo-box p-0 max-w-md w-full relative z-10 flex flex-col overflow-hidden fade-in bg-white border-4 border-black">
+            <div class="bg-black text-white p-5 flex justify-between items-center">
+                <h3 class="font-extrabold text-xl flex items-center gap-3">
+                    <svg class="w-6 h-6 text-[var(--neon-green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    Truly Authenticated
+                </h3>
+                <button onclick="closeModals()" class="text-white hover:text-gray-300 font-bold text-2xl cursor-pointer">✕</button>
+            </div>
+            
+            <div class="p-8 text-center bg-[var(--bg-cream)]">
+                <div class="w-20 h-20 mx-auto bg-green-200 border-4 border-black rounded-full flex items-center justify-center mb-5 shadow-[4px_4px_0_0_#000]">
+                    <span class="text-4xl">👤</span>
+                </div>
+                <h4 class="text-2xl font-black mb-2">Confirmed: A live human verified this message</h4>
+                <p class="text-base font-bold text-gray-600 mb-8">Sender: Jatin Roopak</p>
+                
+                <div class="bg-white border-4 border-black rounded-xl p-4 text-left mb-8 text-sm shadow-[4px_4px_0_0_#000]">
+                    <div class="flex justify-between mb-3 border-b-2 border-gray-100 pb-2">
+                        <span class="font-black text-gray-500 uppercase">Method</span>
+                        <span class="font-extrabold">Secure Enclave Biometric</span>
+                    </div>
+                    <div class="flex justify-between mb-3 border-b-2 border-gray-100 pb-2">
+                        <span class="font-black text-gray-500 uppercase">Timestamp</span>
+                        <span class="font-extrabold">2040-10-23 10:52:14</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-black text-gray-500 uppercase">Integrity</span>
+                        <span class="font-extrabold text-green-600 flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            Verified Unchanged
+                        </span>
+                    </div>
+                </div>
+
+                <button onclick="closeModals(); switchTab('connect');" class="neo-btn w-full py-4 bg-[var(--neon-green)] text-black hover:bg-green-300 text-lg border-4">
+                    Get your own human-verified badge
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Limits Modal -->
+    <div id="aiLimitsModal" class="fixed inset-0 modal-backdrop hidden items-center justify-center p-4">
+        <div class="neo-box p-0 max-w-lg w-full relative z-10 flex flex-col overflow-hidden fade-in bg-white border-4 border-black">
+            <div class="bg-black text-white p-5 flex justify-between items-center">
+                <h3 class="font-extrabold text-xl flex items-center gap-3">
+                    <svg class="w-6 h-6 text-[var(--hot-pink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    AI Interaction Limits
+                </h3>
+                <button onclick="closeModals()" class="text-white hover:text-gray-300 font-bold text-2xl cursor-pointer">✕</button>
+            </div>
+            
+            <div class="p-8 bg-[var(--bg-cream)] text-left">
+                <p class="text-lg font-bold mb-4 text-gray-800">In what sense is AI limited around Truly messages?</p>
+                
+                <div class="bg-red-100 border-4 border-black rounded-xl p-4 mb-4 shadow-[4px_4px_0_0_#000]">
+                    <h4 class="font-black uppercase text-red-700 flex items-center gap-2 mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                        What AI CANNOT Do
+                    </h4>
+                    <p class="text-sm font-semibold text-gray-800">It cannot read the message contents, parse context, extract data, learn from the text, or use it for training. Your data is shielded.</p>
+                </div>
+                
+                <div class="bg-green-100 border-4 border-black rounded-xl p-4 mb-8 shadow-[4px_4px_0_0_#000]">
+                    <h4 class="font-black uppercase text-green-700 flex items-center gap-2 mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        What AI CAN Do
+                    </h4>
+                    <p class="text-sm font-semibold text-gray-800">It can detect the cryptographic presence of the badge. It will only notify you by saying:</p>
+                    <div class="mt-3 p-3 bg-white border-2 border-black rounded-lg text-sm font-black italic text-gray-700 shadow-sm">
+                        "A Truly verified human message has arrived. Please check it personally, sir."
+                    </div>
+                </div>
+
+                <p class="text-sm font-bold text-gray-600 mb-6 text-center italic">Note: Truly is an indicator of Human presence, not that the content is human generated.</p>
+
+                <button onclick="closeModals()" class="neo-btn w-full py-4 bg-[var(--bright-blue)] text-white hover:bg-blue-600 text-lg border-4">
+                    Understood
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quota Gate Modal -->
+    <div id="quotaModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black bg-opacity-40" style="font-family: system-ui, -apple-system, sans-serif;">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-sm overflow-hidden border border-gray-200 fade-in">
+            <div class="px-6 py-5">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Human Bandwidth Quota Reached</h3>
+                <p class="text-sm text-gray-600 mb-5">You have used all 2 free Truly verifications for this month. Choose how you want to deliver this message:</p>
+                
+                <div class="space-y-3">
+                    <button onclick="closeQuotaAndGoToID()" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-md transition-colors text-sm">
+                        <svg class="w-4 h-4 text-green-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Deliver via Truly Verification
+                    </button>
+                    <button onclick="sendNormally()" class="w-full bg-white hover:bg-gray-50 text-gray-700 font-medium py-2.5 px-4 rounded-md border border-gray-300 transition-colors text-sm">
+                        Send Normally (Unverified)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

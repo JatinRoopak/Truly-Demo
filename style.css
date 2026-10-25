@@ -1,0 +1,268 @@
+:root {
+    --neon-green: #ccff00;
+    --deep-purple: #651fff;
+    --hot-pink: #ff007f;
+    --bright-blue: #0055ff;
+    --bold-orange: #ff5500;
+    --bg-cream: #fdfbf7;
+    --lavender: #c4b5fd;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #e5e5f7;
+    background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
+    background-size: 32px 32px;
+    color: #111;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Neo-brutalist utilities */
+.neo-box {
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    border-radius: 16px;
+    background-color: var(--bg-cream);
+}
+
+.neo-btn {
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0px #000;
+    border-radius: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.1s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.neo-btn:active, .neo-btn.active-press {
+    transform: translate(5px, 5px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+.neo-input {
+    border: 3px solid #000;
+    border-radius: 10px;
+    padding: 0.75rem;
+    width: 100%;
+    font-size: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: #fff;
+}
+
+.neo-input:focus {
+    outline: none;
+    box-shadow: 5px 5px 0px var(--bright-blue);
+}
+
+/* Wild Background Elements */
+.bg-canvas {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.anim-float { animation: float 6s ease-in-out infinite; }
+.anim-float-u { animation: float-u 7s ease-in-out infinite; }
+.anim-spin-slow { animation: spin 20s linear infinite; }
+.anim-pulse-slow { animation: pulseShape 4s ease-in-out infinite; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+}
+@keyframes float-u {
+    0%, 100% { transform: translateY(0) rotate(15deg); }
+    50% { transform: translateY(40px) rotate(0deg); }
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes pulseShape {
+    0%, 100% { transform: scale(1) rotate(-20deg); }
+    50% { transform: scale(1.05) rotate(-20deg); }
+}
+
+/* Abstract Shapes */
+.shape-lime-square {
+    position: absolute;
+    width: 220px; height: 220px;
+    background: var(--neon-green);
+    border: 6px solid #000;
+    border-radius: 32px;
+    top: 5%; left: 5%;
+    box-shadow: 12px 12px 0 #000;
+}
+
+.shape-track {
+    position: absolute;
+    width: 340px; height: 160px;
+    background: var(--hot-pink);
+    border: 6px solid #000;
+    border-radius: 100px;
+    bottom: 10%; right: -5%;
+    box-shadow: 14px 14px 0 #000;
+    display: flex; align-items: center; justify-content: center;
+}
+.shape-track-inner {
+    width: 260px; height: 80px;
+    background: var(--bold-orange);
+    border: 6px solid #000;
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center;
+}
+.shape-track-inner-2 {
+    width: 180px; height: 20px;
+    background: var(--hot-pink);
+    border: 4px solid #000;
+    border-radius: 100px;
+}
+
+/* Custom UI Elements */
+.tab-btn {
+    opacity: 0.7;
+    transition: opacity 0.3s, transform 0.1s;
+}
+.tab-btn.active {
+    opacity: 1;
+    background-color: var(--bright-blue);
+    color: #fff;
+    border-color: #000;
+}
+
+/* Hold to send button styles */
+.hold-btn {
+    user-select: none;
+    -webkit-touch-callout: none;
+    cursor: pointer;
+}
+.hold-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background-color: var(--neon-green);
+    z-index: 1;
+    transition: width 0.1s linear;
+}
+.hold-text {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-shadow: 2px 2px 0px #000;
+}
+
+/* Modal Backdrops */
+.modal-backdrop {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+}
+
+.badge-truly {
+    background: #111;
+    color: white;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0 var(--neon-green);
+    transition: transform 0.1s;
+    display: inline-flex;
+}
+.badge-truly:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--neon-green);
+}
+
+.fade-in { animation: fadeIn 0.3s ease forwards; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scan-line {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+.scanner-line {
+    position: absolute;
+    left: 0; right: 0;
+    height: 6px;
+    background: var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green);
+    animation: scan-line 1.2s linear infinite alternate;
+    z-index: 10;
+}
+
+/* Clean Verification Animation Styles */
+@keyframes cleanPop {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes drawCheck {
+    0% { stroke-dashoffset: 60; }
+    100% { stroke-dashoffset: 0; }
+}
+@keyframes ringPulse {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes progressFill {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+.clean-verify-card {
+    animation: cleanPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.check-draw {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+    animation: drawCheck 0.45s 0.2s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.ring-pulse {
+    animation: ringPulse 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.verify-progress-bar {
+    animation: progressFill 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.main-container { 
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100dvh - 160px);
+    margin-bottom: 2rem;
+}
+.tab-content {
+    display: none;
+    width: 100%;
+}
+.tab-content.active-tab {
+    display: flex;
+    flex: 1;
+}
+
+/* Corporate Mailbox Vibe (For Enterprise Demo) */
+.corp-mail {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.corp-mail-btn {
+    background-color: #0078d4;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+.corp-mail-btn:hover { background-color: #106ebe; }
